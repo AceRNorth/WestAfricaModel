@@ -14,8 +14,8 @@
 	vector<Patch> Site; // information on each population
 	/*------------------------------------------------*/
 	/*------------------Output files------------------*/
-	ostringstream os1,os2,os3,os4;
-	ofstream globalinfo,localinfo,dispdist,dispdistEDGE;
+	ostringstream os1,os2,os3;
+	ofstream globalinfo,localinfo,emergence;
 	/*------------------------------------------------*/
 	/*------------Array to store rain input data--------------*/
 	double rain[nx][ny][52];//nx is x grid cell,ny is y grid cell, 52 is weeks in year
@@ -131,10 +131,10 @@
 	      {
 		os1<<"LocalData"<<pa.set<<"run"<<pa.index<<".txt";// make a file for outputing local data
 		os2<<"Totals"<<pa.set<<"run"<<pa.index<<".txt";// make a file for outputing global data
+		os3<<"Emergence"<<pa.set<<"run"<<pa.index<<".txt";// make a file for outputing emergence data
 		localinfo.open(os1.str().c_str());
 		globalinfo.open(os2.str().c_str());
-		dispdist.open(os3.str().c_str());
-		dispdistEDGE.open(os4.str().c_str());
+		emergence.open(os3.str().c_str());
 		std::clock_t start;
 		double dtime;
 		start = std::clock();
@@ -147,8 +147,10 @@
 		dtime = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
 		os1.str("");
 		os2.str("");
+		os3.str("");
 		globalinfo.close();
 		localinfo.close();
+		emergence.close();
 		return;};
 
 	void RunMaxT(void)
@@ -194,7 +196,7 @@
 				};
 	/*--------------------------------------------------------------------------------------*/
 	/*-------------------------------output emergence rates---------------------------------*/
-			cout<<to.Em[0]+to.Em[1]+to.Em[3]<<endl;
+			emergence<<to.Em[0]+to.Em[1]+to.Em[3]<<endl;
 	/*--------------------------------------------------------------------------------------*/
 	/*----output total numbers of females in central area to globalinfo file----------------*/
 			if(TT%ti.interval==0)
@@ -749,7 +751,6 @@ void UpdateComp(int day){
 			if(pa.species=='g'){sp=Site[pat].gam;}
 			else if(pa.species=='a'){sp=Site[pat].arab;}
 			else if(pa.species=='f'){sp=Site[pat].fun;}
-			else {cout<<" species! "<<pa.species; exit(0);};
 		if(Site[pat].dens<=pa.omega)humdens=Site[pat].dens; else humdens=pa.omega;
 	/*-----unnormalised human pop scaling---------*/
 			al+=(sp*humdens)*(Site[pat].alpha0+pa.alpha1*(1-exp(-1*pa.phi*rain[Site[pat].sqx][Site[pat].sqy][week])) +pa.alpha2*(1-exp(-1*pa.kappa*(Site[pat].WaterPerm +(1-exp(-1*pa.delta*rain[Site[pat].sqx][Site[pat].sqy][week]))*Site[pat].WaterTemp))));
