@@ -1,8 +1,8 @@
 8
 1
-../InputFiles/SetInfo1k005t8.csv
-../InputFiles/NeighList1k005t8.csv
-../InputFiles/NeighLengths1k005t8.csv
+./InputFiles/SetInfo1k005t8.csv
+./InputFiles/NeighList1k005t8.csv
+./InputFiles/NeighLengths1k005t8.csv
 1
 1
 10950
@@ -39,8 +39,8 @@
 0.8
 0
 100
-../RainFiles/MeanRainSq8.csv
-../MuFiles/fun_mortality8.csv
+./RainFiles/MeanRainSq8.csv
+./MuFiles/fun_mortality8.csv
 f
 15
 0.00005

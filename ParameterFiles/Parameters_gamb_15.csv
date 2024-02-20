@@ -1,8 +1,8 @@
 15
 1
-../InputFiles/SetInfo1k005t15.csv
-../InputFiles/NeighList1k005t15.csv
-../InputFiles/NeighLengths1k005t15.csv
+./InputFiles/SetInfo1k005t15.csv
+./InputFiles/NeighList1k005t15.csv
+./InputFiles/NeighLengths1k005t15.csv
 1
 1
 10950
@@ -39,8 +39,8 @@
 0.8
 0
 100
-../RainFiles/MeanRainSq15.csv
-../MuFiles/gamb_mortality15.csv
+./RainFiles/MeanRainSq15.csv
+./MuFiles/gamb_mortality15.csv
 g
 15
 0.00005

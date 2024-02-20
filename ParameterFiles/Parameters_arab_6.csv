@@ -1,8 +1,8 @@
 6
 1
-../InputFiles/SetInfo1k005t6.csv
-../InputFiles/NeighList1k005t6.csv
-../InputFiles/NeighLengths1k005t6.csv
+./InputFiles/SetInfo1k005t6.csv
+./InputFiles/NeighList1k005t6.csv
+./InputFiles/NeighLengths1k005t6.csv
 1
 1
 10950
@@ -39,8 +39,8 @@
 0.8
 0
 100
-../RainFiles/MeanRainSq6.csv
-../MuFiles/arab_mortality6.csv
+./RainFiles/MeanRainSq6.csv
+./MuFiles/arab_mortality6.csv
 a
 15
 0.00005
