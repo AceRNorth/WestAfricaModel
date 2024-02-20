@@ -129,9 +129,24 @@
 
 	void RunNReps(int N)
 	      {
-		os1<<"LocalData"<<pa.set<<"run"<<pa.index<<".txt";// make a file for outputing local data
-		os2<<"Totals"<<pa.set<<"run"<<pa.index<<".txt";// make a file for outputing global data
-		os3<<"Emergence"<<pa.set<<"run"<<pa.index<<".txt";// make a file for outputing emergence data
+		if(pa.species=='g')
+			{
+		os1<<"LocalData_gam_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing local data
+		os2<<"Totals_gam_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing global data
+		os3<<"Emergence_gam_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing emergence data
+			}
+		else if(pa.species=='a')
+			{
+		os1<<"LocalData_arab_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing local data
+		os2<<"Totals_arab_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing global data
+		os3<<"Emergence_arab_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing emergence data
+			}
+		if(pa.species=='f')
+			{
+		os1<<"LocalData_fun_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing local data
+		os2<<"Totals_fun_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing global data
+		os3<<"Emergence_fun_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing emergence data
+			};
 		localinfo.open(os1.str().c_str());
 		globalinfo.open(os2.str().c_str());
 		emergence.open(os3.str().c_str());
