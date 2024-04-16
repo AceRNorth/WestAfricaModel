@@ -6,7 +6,7 @@ The scripts in this repository were written to study genetic (gene-drive) method
 
 Installation
 
-CM.cpp is a c++ code for a simulation model of mosquito population dynamics, accompanied by the header file head.h. To run the model, download these source files and compile them locally (though we cannot guarentee they are compatible with all compilers). Alternatively, you may download RunModel, a compiled executable version of the c++ code, compiled with The Intel(R) C++ Compiler Classic (ICC) (version 2021.9.0). RunModel has been compiled and tested on a linux desktop computer. The sub-directories ‘InputFiles’, ‘MuFiles’, ‘RainFiles’ and ‘ParameterFiles’ are needed to run the model in sixteen spatial settings, each an area of ~12,000km^2 in West Africa. 
+CM.cpp is a c++ code for a simulation model of mosquito population dynamics, accompanied by the header file head.h. To run the model, download these source files and compile them locally (though we cannot guarentee they are compatible with all compilers). Alternatively, you may download RunModel, a compiled executable version of the c++ code, compiled with The Intel(R) C++ Compiler Classic (ICC) (version 2021.9.0). RunModel has been compiled and tested on a linux desktop computer (Ubuntu 20.04.6 LTS). The sub-directories ‘InputFiles’, ‘MuFiles’, ‘RainFiles’ and ‘ParameterFiles’ are needed to run the model in sixteen spatial settings, each an area of ~12,000km^2 in West Africa. 
 
 Usage
 
