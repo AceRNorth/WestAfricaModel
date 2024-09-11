@@ -45,6 +45,7 @@ struct totals
 	long long int JTot,MTot,VTot,FTot;
 	int CentSqVils;
 	double CentSqHum;
+	double distW,distD,distR;
 	};	
 /*----------------------------------------------------------------------------------------*/
 
@@ -56,6 +57,8 @@ struct initials
 	int NumAdultsDM; int NumAdultsDV; int NumAdultsDF;
 	int NumAdultsRM; int NumAdultsRV; int NumAdultsRF;
 	int NumJW[TL]; int NumJD[TL]; int NumJR[TL];
+	vector<pair<int,int>> relpatches;
+	//vector<int> reltimes;
 	string inputfile;
 	string polyconnect;
 	string polyedges;
@@ -71,6 +74,7 @@ struct initials
 	double NumDriverSitesD;
 	int NumR;
 	int NumRes;
+	char dist;
 	int recSitesFreq;
 	};	
 /*----------------------------------------------------------------------------------------*/
@@ -115,6 +119,7 @@ struct Patch
 	char type;
 	char Fixed;
 	int CentSq;
+	double distOrigin;
 	double WaterTemp,WaterPerm;
 	double alpha0;
 	int clusterID;
@@ -134,6 +139,7 @@ struct Times
 	int recend;
 	int NumRuns;
 	int interval;
+	int yearnow;
 };
 
 
@@ -160,6 +166,7 @@ struct Pars
 	int t_disp1,t_disp2,t_disp3,t_disp4;
 	int t_hide1,t_hide2,t_wake1,t_wake2;
 	double f[NumGen][NumGen][NumGen];
+	int dispStart,dispLength,dispSoFar,dispSoFarEDGE;
 	};
 /*----------------------------------------------------------------------------------------*/
 

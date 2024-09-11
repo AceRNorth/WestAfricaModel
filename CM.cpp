@@ -129,43 +129,42 @@
 
 	void RunNReps(int N)
 	      {
-		if(pa.species=='g')
+		for(int j=pa.index;j<N+pa.index;j++)
 			{
-		os1<<"LocalData_gam_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing local data
-		os2<<"Totals_gam_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing global data
-		os3<<"Emergence_gam_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing emergence data
+		/*if(pa.species=='g')
+			{
+		os1<<"LocalData_gam_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing local data
+		os2<<"Totals_gam_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing global data
+		os3<<"Emergence_gam_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing emergence data
 			}
 		else if(pa.species=='a')
 			{
-		os1<<"LocalData_arab_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing local data
-		os2<<"Totals_arab_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing global data
-		os3<<"Emergence_arab_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing emergence data
+		os1<<"LocalData_arab_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing local data
+		os2<<"Totals_arab_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing global data
+		os3<<"Emergence_arab_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing emergence data
 			}
 		if(pa.species=='f')
 			{
-		os1<<"LocalData_fun_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing local data
-		os2<<"Totals_fun_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing global data
-		os3<<"Emergence_fun_"<<pa.set<<"_index_"<<pa.index<<".txt";// make a file for outputing emergence data
-			};
+		os1<<"LocalData_fun_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing local data
+		os2<<"Totals_fun_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing global data
+		os3<<"Emergence_fun_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing emergence data
+			};*/
+		os1<<"LocalData"<<pa.set<<"run"<<j<<".txt";// make a file for outputing local data
+		os2<<"Totals"<<pa.set<<"run"<<j<<".txt";// make a file for outputing global data
+		os3<<"Emergence"<<pa.set<<"run"<<j<<".txt";// make a file for outputing emergence data
 		localinfo.open(os1.str().c_str());
 		globalinfo.open(os2.str().c_str());
 		emergence.open(os3.str().c_str());
-		std::clock_t start;
-		double dtime;
-		start = std::clock();
-			initiate();
-		for(int j=0;j<N;j++)
-			{
-			ResetSites();
-			RunMaxT();
-			};
-		dtime = ( std::clock() - start ) / (double) CLOCKS_PER_SEC;
+		initiate();
+		ResetSites();
+		RunMaxT();
 		os1.str("");
 		os2.str("");
 		os3.str("");
 		globalinfo.close();
 		localinfo.close();
 		emergence.close();
+			};
 		return;};
 
 	void RunMaxT(void)
@@ -178,9 +177,35 @@
 		int uniquepat,relpat,year2,num_release_clusters,num_driver;
 		if(in.NumDriverSites<1)num_release_clusters=int(in.NumDriverSites*to.CentSqVils);
 		if(in.NumDriverSites>=1)num_release_clusters=min(to.CentSqVils,int(in.NumDriverSites));
-		int relpatches[num_release_clusters];
-		int reltimes[num_release_clusters];
-		for(int ii=0;ii<num_release_clusters;ii++)relpatches[ii]=500000;
+
+		in.relpatches.clear();
+		if(num_release_clusters==1)
+		{
+			for(int i=0;i<Site.size();i++)	if(Site[i].CentSq==1)site=i; 
+			in.relpatches.push_back(make_pair(site,in.driver_time));
+		}
+		else
+		{
+
+			for(int jj=0;jj<num_release_clusters;jj++)
+				{
+				uniquepat=0;
+				while(uniquepat==0)
+					{
+					uniquepat=1;
+					relpat=rg.IRandom(0,Site.size()-1);
+					for(int ii=0;ii<in.relpatches.size();ii++)
+						{
+				if(relpat==in.relpatches[ii].first || Site[relpat].CentSq==0)uniquepat=0;
+						};
+					};
+				in.relpatches.push_back(make_pair(relpat,in.driver_time));
+				};
+		};
+		for(int ii=0;ii<in.relpatches.size();ii++)
+		cout<<in.relpatches[ii].first<<"    "<<in.relpatches[ii].second<<endl;
+
+
 	/*----------------------------run simulation until maxT----------------------------------*/
 		while (TT<ti.maxT+1)
 			{
@@ -188,26 +213,7 @@
 	/*---------------------------select sites for release of gene drive----------------------*/
 			if(TT%365==0)
 				{
-				for(int i=0;i<Site.size();i++)	Site[i].yearTotF=0; 
-				if(num_release_clusters==1){
-					for(int i=0;i<Site.size();i++)	if(Site[i].CentSq==1)site=i; 
-					relpatches[0]=site;reltimes[0]=in.driver_time;}
-				else{
-					for(int jj=0;jj<num_release_clusters;jj++) relpatches[jj]=-1;
-					for(int jj=0;jj<num_release_clusters;jj++)
-						{
-						uniquepat=0;
-						while(uniquepat==0)
-							{
-							uniquepat=1;
-							relpat=rg.IRandom(0,Site.size()-1);
-							for(int ii=0;ii<num_release_clusters;ii++)
-								{if(relpat==relpatches[ii] || Site[relpat].CentSq==0)uniquepat=0;};
-							relpatches[jj]=relpat;
-							};
-						if(in.driver_time<0)reltimes[jj]=rg.IRandom(1,364); else reltimes[jj]=in.driver_time;
-						};
-					};
+		for(int i=0;i<Site.size();i++)	Site[i].yearTotF=0; 
 				};
 	/*--------------------------------------------------------------------------------------*/
 	/*-------------------------------output emergence rates---------------------------------*/
@@ -221,11 +227,11 @@
 					{
 					if(Site[pat].CentSq==1)
 						{
-						for(int i=0;i<NumGen;i++)to.CentF[i]+=accumulate(Site[pat].F[i],Site[pat].F[i]+NumGen,0);
+for(int i=0;i<NumGen;i++)to.CentF[i]+=accumulate(Site[pat].F[i],Site[pat].F[i]+NumGen,0);
 						};
 					};
 				globalinfo<<TT;
-				for(int i=0;i<NumGen;i++)globalinfo<<"     "<<to.F[i];
+				for(int i=0;i<NumGen;i++)globalinfo<<"     "<<to.CentF[i];
 				globalinfo<<endl;
 				};
 	/*--------------------------------------------------------------------------------------*/
@@ -236,11 +242,11 @@
 	/*---------------release gene drive mosquitoes if in release time period----------------*/
 			if(TT>=abs(in.driver_start) && TT<in.driver_end)
 			{
-				for(int jj=0;jj<num_release_clusters;jj++)
+				for(int jj=0;jj<in.relpatches.size();jj++)
 					{
-					if(TT%365==reltimes[jj])
+					if(TT%365==in.relpatches[jj].second)
 						{
-						PutDriverSites(relpatches[jj]);
+						PutDriverSites(in.relpatches[jj].first);
 						};
 					};
 			};
@@ -311,6 +317,8 @@
 		to.CentSqHum=0;
 		Site.clear();
 		Site.clear();
+		in.relpatches.clear();
+
 		for(int xx=0;xx<nx;xx++) { for(int yy=0;yy<ny;yy++) { SetsPerCell[xx][yy].clear(); }; };
 		Patch pp;
 		/*----------------------------------------------------------------------------------*/
@@ -1021,7 +1029,16 @@ int* random_multinomEqualProb(int N,int howmany)
 
 void record(int index)
 	{	
-
+	int pat,NumFem;
+	for(int ii=0;ii<in.relpatches.size();ii++)
+	{
+	pat=in.relpatches[ii].first;
+//	localinfo<<pat;
+	NumFem= accumulate(Site[pat].F[0],Site[pat].F[0]+NumGen,0)+ accumulate(Site[pat].F[1],Site[pat].F[1]+NumGen,0)+ accumulate(Site[pat].F[3],Site[pat].F[3]+NumGen,0);
+	localinfo<<"   "<<NumFem;
+	};
+	localinfo<<endl;
+/*
 	for(int pat=0;pat<Site.size();pat+=in.recSitesFreq)
 				{
 				localinfo<<index;
@@ -1029,7 +1046,7 @@ void record(int index)
 			for(int i=0;i<NumGen;i++) localinfo<<"    "<<accumulate(Site[pat].F[i],Site[pat].F[i]+NumGen,0);
 				localinfo<<endl;
 				};
-
+*/
 		
 	return;};
 
