@@ -131,7 +131,7 @@
 	      {
 		for(int j=pa.index;j<N+pa.index;j++)
 			{
-		/*if(pa.species=='g')
+		if(pa.species=='g')
 			{
 		os1<<"LocalData_gam_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing local data
 		os2<<"Totals_gam_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing global data
@@ -143,15 +143,15 @@
 		os2<<"Totals_arab_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing global data
 		os3<<"Emergence_arab_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing emergence data
 			}
-		if(pa.species=='f')
+		else if(pa.species=='f')
 			{
 		os1<<"LocalData_fun_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing local data
 		os2<<"Totals_fun_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing global data
 		os3<<"Emergence_fun_"<<pa.set<<"_index_"<<j<<".txt";// make a file for outputing emergence data
-			};*/
-		os1<<"LocalData"<<pa.set<<"run"<<j<<".txt";// make a file for outputing local data
-		os2<<"Totals"<<pa.set<<"run"<<j<<".txt";// make a file for outputing global data
-		os3<<"Emergence"<<pa.set<<"run"<<j<<".txt";// make a file for outputing emergence data
+			};
+//		os1<<"LocalData"<<pa.set<<"run"<<j<<".txt";// make a file for outputing local data
+//		os2<<"Totals"<<pa.set<<"run"<<j<<".txt";// make a file for outputing global data
+//		os3<<"Emergence"<<pa.set<<"run"<<j<<".txt";// make a file for outputing emergence data
 		localinfo.open(os1.str().c_str());
 		globalinfo.open(os2.str().c_str());
 		emergence.open(os3.str().c_str());
